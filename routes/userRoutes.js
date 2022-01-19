@@ -39,6 +39,7 @@ router.post(
     if (user && (await user.matchPassword(password))) {
       res.json({
         firstName: user.firstName,
+        email: user.email,
         token: generateToken(user._id),
       });
     } else {

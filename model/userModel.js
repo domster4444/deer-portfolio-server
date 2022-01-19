@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   url: {
     type: String,
+    default: 'https://presaveio.s3.amazonaws.com/uploads/NoImage/no_img.png',
   },
 });
 
