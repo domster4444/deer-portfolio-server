@@ -49,4 +49,26 @@ router.post(
     }
   })
 );
+
+router.post(
+  '/accountdata',
+  asyncHandler(async (req, res, next) => {
+    const { email } = req.body;
+    console.log('req body' + req.body);
+    console.log(req.body);
+
+    const user = await User.findOne({ email });
+    console.log(user);
+
+    if (user) {
+      res.status(200).json({
+        allUserData: user,
+      });
+    }
+
+    return res.status(404).json({
+      message: 'User not found',
+    });
+  })
+);
 module.exports = router;
