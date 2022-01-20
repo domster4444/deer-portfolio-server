@@ -28,7 +28,34 @@ const userSchema = new mongoose.Schema({
   },
   url: {
     type: String,
-    default: 'https://presaveio.s3.amazonaws.com/uploads/NoImage/no_img.png',
+    default:
+      'https://i.pinimg.com/564x/74/46/9b/74469bd23df16c22231fcf75b7073fd2.jpg',
+    optional: true,
+  },
+  contactNumber: {
+    type: String,
+    default: '',
+    optional: true,
+  },
+  address: {
+    type: String,
+    default: '',
+    optional: true,
+  },
+  city: {
+    type: String,
+    default: '',
+    optional: true,
+  },
+  zipCode: {
+    type: String,
+    default: '',
+    optional: true,
+  },
+
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
 });
 
