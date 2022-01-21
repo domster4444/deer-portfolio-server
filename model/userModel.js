@@ -57,6 +57,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  accountType: {
+    type: String,
+    default: 'free',
+    optional: true,
+  },
 });
 
 userSchema.methods.matchPassword = async function (incomingPassword) {

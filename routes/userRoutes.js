@@ -19,6 +19,39 @@ router.get(
     });
   })
 );
+router.get(
+  '/free',
+  asyncHandler(async (req, res, next) => {
+    const users = await User.find({ accountType: 'free' });
+    if (!users) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No user found',
+      });
+    }
+
+    res.status(200).json({
+      status: 'success',
+      results: users.length,
+      data: {
+        users,
+      },
+    });
+  })
+);
+router.get(
+  '/premium',
+  asyncHandler(async (req, res, next) => {
+    const users = await User.find({ accountType: 'premium' });
+    res.status(200).json({
+      status: 'success',
+      results: users.length,
+      data: {
+        users,
+      },
+    });
+  })
+);
 
 router.post(
   '/register',
