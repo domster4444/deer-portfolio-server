@@ -5,6 +5,21 @@ const { generateToken } = require('../utils/generateToken');
 const { registrationValidation } = require('../validation/validate');
 const { loginValidation } = require('../validation/validate');
 const router = express.Router();
+
+router.get(
+  '/all',
+  asyncHandler(async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+      status: 'success',
+      results: users.length,
+      data: {
+        users,
+      },
+    });
+  })
+);
+
 router.post(
   '/register',
   asyncHandler(async (req, res, next) => {
@@ -71,4 +86,37 @@ router.post(
     });
   })
 );
+
+router.patch(
+  '/accountdata',
+  asyncHandler(async (req, res, next) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      contactNumber,
+      address,
+      city,
+      zipCode,
+    } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.email = email;
+      user.contactNumber = contactNumber;
+      user.address = address;
+      user.city = city;
+      user.zipCode = zipCode;
+      await user.save();
+      res.status(200).json({
+        message: 'User updated',
+      });
+    }
+    return res.status(404).json({
+      message: 'User not found',
+    });
+  })
+);
+
 module.exports = router;
