@@ -91,9 +91,7 @@ router.post(
         token: generateToken(user._id),
       });
     } else {
-      const err = new Error('Invalid email or password');
-      err.status = 401;
-      next(err);
+      res.status(400).json({ message: 'Invalid credentials', status: 'fail' });
     }
   })
 );
