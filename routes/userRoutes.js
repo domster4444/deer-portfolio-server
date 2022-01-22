@@ -79,11 +79,15 @@ router.post(
     const { error } = loginValidation(req.body);
     if (error) {
       const err = new Error(error.details[0].message);
-      err.status = 400;
+      err.status = 500;
       next(err);
     }
     const { email, password } = req.body;
+    console.log('email: ', email);
+    console.log('password: ', password);
     const user = await User.findOne({ email });
+    console.log('user: ', user);
+    console.log(await user.matchPassword(password));
     if (user && (await user.matchPassword(password))) {
       res.json({
         firstName: user.firstName,
